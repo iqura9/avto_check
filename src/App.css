@@ -1,38 +1,98 @@
-.App {
-  text-align: center;
+button{
+    background-color: #f44336; /* Red */
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    cursor: pointer;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+button:hover{
+    background-color: #3662f4;
+}
+button:active{
+    background-color: #121521;
+
+
+}
+.Car_app{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.Car_app_IMG{
+   height: 900px;
+    width: auto;
+    margin-bottom: -100px;
+}
+.Car_app_align_button button{
+    margin-right: 25px;
+    margin-left: 25px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+input[type=text], select {
+
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+input[type=submit] {
+
+    background-color: #4CAF50;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
 }
 
-.App-link {
-  color: #61dafb;
+input[type=submit]:hover {
+    background-color: #45a049;
 }
+.findNewCar{
+    margin-top: 15px;
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+}
+.Change_width {
+   /* margin-right: 10px;
+    width: 700px;
+    height: 700px;
+    margin-left: 10px;*/
+    margin-top: 25px;
+}
+.Change_width img {
+    width: 100%;
+    height: auto;
+}
+.Align_NIW{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
+.big_img{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: darkgray;
+    top: 0;
+    left: 0;
+    padding-top: 50px;
+}
+.big_img img {
+    width: 1000px;
+    margin: 0 auto;
+    display: flex;
+}
+.nsxs{
+    display: flex;
+    justify-content: center;
+    margin-top: 15px;
 }

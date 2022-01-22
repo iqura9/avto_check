@@ -1,25 +1,23 @@
-import logo from './logo.svg';
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+
+import {Route, Switch} from "react-router-dom";
+import {Type_number} from "./UI/FIRST_PAGE/type_number";
+import {Show_number} from "./UI/FIRST_PAGE/Show_number";
+import {HeaderContainer} from "./UI/Header/Header";
+
+
+const App = () => {
+    return (
+        <div>
+            <HeaderContainer/>
+            <Switch>
+                <Route path='/show' render={() => <Type_number/>}/>
+                <Route path='/*' render={() => <Show_number/>}/>
+            </Switch>
+
+        </div>
+    )
 }
 
 export default App;
