@@ -19,9 +19,6 @@ export const MainPage:React.FC<{}> = () => {
         }else{
             localStorage.setItem('testObject', JSON.stringify(info));
         }
-        if(!JSON.parse(localStorage.getItem('mainURL') || "")){
-            localStorage.setItem('mainURL', JSON.stringify(""));
-        }
     },[]);
 
     let val = '';
