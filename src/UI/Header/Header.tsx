@@ -1,8 +1,11 @@
 import {NavLink} from "react-router-dom";
 import './header.css';
-import {connect} from "react-redux";
+import {useSelector} from "react-redux";
+import React from "react";
+import {AppStateType} from "../../Redux/Redux-store";
 
-const Header = ({counter = 0}) =>{
+export const Header: React.FC<{}> = () =>{
+    const counter = useSelector<AppStateType>((state)  => state.showPage.info.length);
     return (
         <header className="site-header">
             <div className="wrapper site-header__wrapper">
@@ -14,7 +17,6 @@ const Header = ({counter = 0}) =>{
                         <ul className="nav__wrapper">
                             <li className="nav__item"><NavLink activeClassName="active" to="/*">Find Car</NavLink></li>
                             <li className="nav__item"><NavLink activeClassName="active" to='/show' href="">Check Car</NavLink></li>
-
                         </ul>
                     </nav>
                 </div>
@@ -25,7 +27,3 @@ const Header = ({counter = 0}) =>{
         </header>
     )
 }
-const mapStateToProps = (state) =>({
-    counter: state.showPage.info.length
-})
-export const HeaderContainer = connect(mapStateToProps,{})(Header)

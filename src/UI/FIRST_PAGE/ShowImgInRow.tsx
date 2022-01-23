@@ -1,8 +1,13 @@
-import {useState} from "react";
+import React, {useState} from "react";
 import {useDispatch} from "react-redux";
 
-export const ShowImgInRow = ({url,setInitializeProgram,deleteIdACThunk,...props}) =>{
-    const [vis,setVis] = useState(false);
+interface PropsType{
+    url: number,
+    deleteIdACThunk: (url:number) => void
+}
+
+export const ShowImgInRow:React.FC<PropsType> = ({url,deleteIdACThunk,...props}) =>{
+    const [vis,setVis] = useState<boolean>(false);
     const dispatch = useDispatch();
     const numberMainLetter = 'f';
     let baseUrl = `https://cdn3.riastatic.com/photosnew/auto/photo/__${url}${numberMainLetter}.jpg`;
@@ -25,7 +30,6 @@ export const ShowImgInRow = ({url,setInitializeProgram,deleteIdACThunk,...props}
                     <div className="nsxs">
                         <button onClick={() => setVis(false)}>Close</button>
                     </div>
-
                 </div>
             }
         </div>

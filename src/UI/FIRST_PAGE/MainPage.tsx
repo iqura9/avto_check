@@ -1,41 +1,44 @@
 
-import {useEffect, useRef, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import {Redirect} from "react-router-dom";
-import {changeUrl, deleteIdACThunk, setInitializeProgram} from "../../Redux/reducers/showPageReducer";
+import {actions, deleteIdACThunk} from "../../Redux/reducers/showPageReducer";
 import {useDispatch, useSelector} from "react-redux";
 import {ShowImgInRow} from "./ShowImgInRow";
+import {AppStateType} from "../../Redux/Redux-store";
 
-export const Show_number = (props) => {
-    const info = useSelector(state => state.showPage.info);
+export const MainPage:React.FC<{}> = () => {
+    const info = useSelector<AppStateType>(state => state.showPage.info);
     const dispatch = useDispatch();
     const [yes,setYes] = useState(false);
     const [CarAvaible,setCarAvaible] = useState(false);
 
     useEffect(() => {
-        if(JSON.parse(localStorage.getItem('testObject'))){
-            dispatch(setInitializeProgram());
+        if(JSON.parse(localStorage.getItem('testObject') || "")){
+            dispatch(actions.setInitializeProgram());
             setCarAvaible(true);
         }else{
             localStorage.setItem('testObject', JSON.stringify(info));
         }
-        if(!JSON.parse(localStorage.getItem('mainURL'))){
+        if(!JSON.parse(localStorage.getItem('mainURL') || "")){
             localStorage.setItem('mainURL', JSON.stringify(""));
         }
     },[]);
+
     let val = '';
-    let ref = useRef(null);
+    let ref = useRef<HTMLInputElement>(null);
+
     const sendInfo = () =>{
-        dispatch(changeUrl(val));
-        ref.current.value ='';
+        dispatch(actions.changeUrl(val));
+        if(ref.current && ref) ref.current.value ='';
         setYes(true);
         localStorage.setItem('mainURL', JSON.stringify(val));
     }
-    const seeValue = (e) =>{
+    const seeValue = (e:React.ChangeEvent<HTMLInputElement>) =>{
         val = e.target.value;
     }
 
     if(yes) return <Redirect to={"/show"}/>
-    let retrievedObject = JSON.parse(localStorage.getItem('testObject'));
+    let retrievedObject = JSON.parse(localStorage.getItem('testObject') || "");
     return (
         <>
         <div className='Car_app'>
@@ -45,7 +48,7 @@ export const Show_number = (props) => {
         </div>
             {CarAvaible &&
                 <div className='Align_NIW'>
-                    {retrievedObject.map(res => <ShowImgInRow url={res.number} deleteIdACThunk={deleteIdACThunk}/>)}
+                    {retrievedObject.map((res: { number: number; }) => <ShowImgInRow url={res.number} deleteIdACThunk={deleteIdACThunk}/>)}
                 </div>
             }
 

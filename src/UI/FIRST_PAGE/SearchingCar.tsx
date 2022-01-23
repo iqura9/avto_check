@@ -1,21 +1,20 @@
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {Redirect} from "react-router-dom";
-import {sendThunka, setInitializeProgram} from "../../Redux/reducers/showPageReducer";
+import {actions, sendThunka} from "../../Redux/reducers/showPageReducer";
+import {AppStateType} from "../../Redux/Redux-store";
 let imgNotFound ='https://clients.cylindo.com/viewer/3.x/v3.0/documentation/img/not_found.gif';
 
-export const Type_number = () => {
+export const SearchingCar: React.FC<{}> = () => {
 
-    const numberMain = useSelector(state => state.showPage.MainNumberURL);
+    const numberMain = useSelector<AppStateType>(state => state.showPage.MainNumberURL);
     const dispatch = useDispatch();
     const [inx, setInx] = useState(numberMain);
     const [error, setError] = useState(false);
-
     useEffect(() => {
-        dispatch(setInitializeProgram());
+        dispatch(actions.setInitializeProgram());
         setInx(numberMain);
     },[numberMain]);
-
     let x;
     const changeMinus = () => {
         x = Number(inx) - 1;
@@ -28,7 +27,7 @@ export const Type_number = () => {
         localStorage.setItem('mainURL', JSON.stringify(x));
     }
     const addToLocalStorage = () =>{
-        dispatch(sendThunka(inx));
+        dispatch(sendThunka(Number(inx)));
     }
     let baseUrl = `https://cdn3.riastatic.com/photosnew/auto/photo/__${inx}f.jpg`;
 
@@ -46,8 +45,6 @@ export const Type_number = () => {
                 <div className='findNewCar'>
                     <button onClick={() => setError(true)}>Find Another Car</button>
                 </div>
-
-
             </div>
         </>
     );
