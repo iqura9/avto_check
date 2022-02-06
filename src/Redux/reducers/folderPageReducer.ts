@@ -52,6 +52,11 @@ export const folderReducer = (state=initialState, action:ActionsTypes):InitialSt
                     return {...u , ...u.Cars};
                 })
             }
+        case "addNewFolder":
+            return{
+                ...state,
+                ArrayFolders: [...state.ArrayFolders,action.folderData]
+            }
         default: {
             return state;
         }
@@ -59,7 +64,8 @@ export const folderReducer = (state=initialState, action:ActionsTypes):InitialSt
 }
 
 export const actions = {
-    deleteId: (folderID:string, productID:string) => ({type: 'deleteId', folderID, productID} as const)
+    deleteId: (folderID:string, productID:string) => ({type: 'deleteId', folderID, productID} as const),
+    addNewFolder: (folderData:cars) => ({type: 'addNewFolder',folderData} as const)
 }
 
 

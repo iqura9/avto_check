@@ -1,17 +1,30 @@
 import React from 'react';
 import './folder.css';
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {AppStateType} from "../../Redux/Redux-store";
 import {useHistory} from "react-router-dom";
-
+import {actions} from "../../Redux/reducers/folderPageReducer";
+import * as uuid from 'uuid';
 
 const Folder = () => {
     const cars = useSelector((state: AppStateType) => state.folderPage.ArrayFolders);
     const history =useHistory();
-
+    const dispatch = useDispatch();
     const folder =  require("./../../img/folder.png")
     const nextPage  = (id:string | number) =>{
         history.push(`/folder/${id}`);
+    }
+
+    const creatFolder = (folderName:string) =>{
+        let newId = uuid.v4();
+        let push = {
+            folderId:newId,
+            mainImg: '',
+            nameOfFolder: folderName +' - '+ newId.slice(0,4),
+            Cars:[]
+        }
+        dispatch(actions.addNewFolder(push));
+
     }
     return (
         <div className='MainBlockWrapper'>
@@ -28,7 +41,7 @@ const Folder = () => {
                     )
                 })
             }
-            <div className='Block_Wrapper'  >
+            <div className='Block_Wrapper'  onClick={() => creatFolder('new folder')}>
                 <span className='Block_Center-add'>+</span>
                 <div className='Block_content'>
                     <div className='Circle'></div>
