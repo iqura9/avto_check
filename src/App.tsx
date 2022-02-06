@@ -6,6 +6,8 @@ import {SearchingCar} from "./UI/FIRST_PAGE/SearchingCar";
 import {MainPage} from "./UI/FIRST_PAGE/MainPage";
 import {Header} from "./UI/Header/Header";
 import React from "react";
+import Folder from "./UI/Folder/Folder";
+import FolderInfo from "./UI/Folder/folderInfo";
 
 const initProgram = () => {
     let aValue = localStorage.getItem("testObject");
@@ -21,6 +23,8 @@ const App: React.FC<{}>= () => {
             <Header/>
             <Switch>
                 <Route path='/show' render={() => <SearchingCar/>}/>
+                <Route exact path='/folder' render={() => <Folder/>}/>
+                <Route path='/folder/:id?' render={() => <FolderInfo/>}/>
                 <Route path='/*' render={() => <MainPage/>}/>
             </Switch>
         </div>

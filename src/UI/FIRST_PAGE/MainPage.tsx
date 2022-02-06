@@ -30,9 +30,7 @@ export const MainPage:React.FC<{}> = () => {
         setYes(true);
         localStorage.setItem('mainURL', JSON.stringify(val));
     }
-    const seeValue = (e:React.ChangeEvent<HTMLInputElement>) =>{
-        val = e.target.value;
-    }
+    const seeValue = (e:React.ChangeEvent<HTMLInputElement>) =>{val = e.target.value;}
 
     if(yes) return <Redirect to={"/show"}/>
     let retrievedObject = JSON.parse(localStorage.getItem('testObject') || "");

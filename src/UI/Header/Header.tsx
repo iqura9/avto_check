@@ -17,6 +17,7 @@ export const Header: React.FC<{}> = () =>{
                         <ul className="nav__wrapper">
                             <li className="nav__item"><NavLink activeClassName="active" to="/*">Find Car</NavLink></li>
                             <li className="nav__item"><NavLink activeClassName="active" to='/show' href="">Check Car</NavLink></li>
+                            <li className="nav__item"><NavLink activeClassName="active" to='/folder' href="">Folders</NavLink></li>
                         </ul>
                     </nav>
                 </div>

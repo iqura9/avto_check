@@ -2,9 +2,11 @@ import {Action, applyMiddleware, combineReducers, createStore} from "redux";
 import {showReducer} from "./reducers/showPageReducer";
 import * as thunk from "redux-thunk";
 import {ThunkAction} from "redux-thunk";
+import {folderReducer} from "./reducers/folderPageReducer";
 
 let RootReducers= combineReducers({
-    showPage: showReducer
+    showPage: showReducer,
+    folderPage: folderReducer
 });
 
 type RootReducerType = typeof RootReducers;

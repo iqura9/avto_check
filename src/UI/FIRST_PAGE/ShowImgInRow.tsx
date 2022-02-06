@@ -3,10 +3,13 @@ import {useDispatch} from "react-redux";
 
 interface PropsType{
     url: number,
-    deleteIdACThunk: (url:number) => void
+    deleteIdACThunk?: (url:number) => void,
+    deleteNew?: (folderID:string, productID:string) => void,
+    folderID? :string,
+    productID? :string,
 }
 
-export const ShowImgInRow:React.FC<PropsType> = ({url,deleteIdACThunk,...props}) =>{
+export const ShowImgInRow:React.FC<PropsType> = ({url,deleteIdACThunk,deleteNew,folderID,productID,...props}) =>{
     const [vis,setVis] = useState<boolean>(false);
     const dispatch = useDispatch();
     const numberMainLetter = 'f';
@@ -16,7 +19,11 @@ export const ShowImgInRow:React.FC<PropsType> = ({url,deleteIdACThunk,...props})
         document.body.scrollTop = document.documentElement.scrollTop = 0;
     }
     const deleteId =()=>{
-        dispatch(deleteIdACThunk(url));
+        if(deleteIdACThunk) dispatch(deleteIdACThunk(url));
+        else if(deleteNew) {
+            if(folderID && productID)
+            dispatch(deleteNew(folderID,productID));
+        }
     }
     return (
         <div className='Change_width'>
