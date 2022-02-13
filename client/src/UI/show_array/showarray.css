@@ -1,0 +1,44 @@
+.Car_small_img{
+    width: 275px;
+}
+.Car_flex{
+    display: flex;
+    flex-direction: column;
+    width: 275px;
+    margin: 25px;
+}
+.Show_Cars{
+    display: flex;
+    flex-wrap: wrap;
+}
+.select_car{
+    float: right;
+}
+.radio_buttons{
+    display: flex;
+    width: 400px;
+    justify-content: space-between;
+    font-size: 16px;
+    margin-bottom: 15px;
+    align-items: center;
+}
+.radio_buttons input{
+    width: 25px;
+    height: 25px;
+    margin-right: 10px;
+}
+.radio_buttons label{
+    display: flex;
+    align-items: center;
+}
+.radio_buttons span{
+    margin-top: 4px;
+}
+.flew_row{
+    display: flex;
+    flex-direction: row;
+}
+.select_folder{
+    margin-left: 20px;
+
+}

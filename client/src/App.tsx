@@ -12,6 +12,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {setCarFromDB} from "./Redux/reducers/folderPageReducer";
 import {AppStateType} from "./Redux/Redux-store";
 import Preloader from "./UI/Preloader/Preloader";
+import ShowArray from "./UI/show_array/ShowArray";
 
 const initProgram = () => {
     let aValue2 = localStorage.getItem("mainURL");
@@ -31,7 +32,9 @@ const App: React.FC<{}>= () => {
         <div>
             <Header/>
             <Switch>
-                <Route path='/show' render={() => <SearchingCar/>}/>
+                <Route path='/show/array/:id?' render={() => <ShowArray/>}/>
+                <Route path='/show/:id?' render={() => <SearchingCar/>}/>
+
                 <Route exact path='/folder' render={() => <Folder/>}/>
                 <Route path='/folder/:id?' render={() => <FolderInfo/>}/>
                 <Route path='/*' render={() => <MainPage/>}/>
