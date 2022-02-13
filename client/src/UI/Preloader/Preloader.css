@@ -1,0 +1,16 @@
+.WrapperPreloader{
+    width: 100%;
+    height: 100%;
+    background-color: #cb0532;
+    position: absolute;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+    display: flex;
+}
+.WrapperPreloader img{
+    margin: auto;
+}
+.qqqq{
+    text-decoration: none;
+}

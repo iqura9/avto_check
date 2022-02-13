@@ -1,0 +1,81 @@
+.Block_Wrapper{
+    width: 200px;
+    border: 1px solid #333;
+    margin: 10px;
+    border-radius: 14px;
+    background-color: #dcaab6;
+    cursor: pointer;
+    position: relative;
+}
+
+.Align_NIW div{
+    justify-content: center;
+}
+.Align_NIW {
+    margin-top: 10px;
+}
+.Block_content-img{
+    width: 100%;
+    height: auto;
+}
+.Block_content{
+    padding: 25px;
+}
+.Block_content div{
+    text-align: center;
+}
+.Block_content button{
+    margin-top: 7px;
+}
+.MainBlockWrapper{
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+}
+.Block_Center{
+    position: absolute;
+    top: 42%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    font-size: 32px;
+    color: white;
+    font-family:sans-serif;
+    font-weight: 700;
+}
+.Circle{
+    width: 150px;
+    height: 150px;
+    background-color: #cb0532;
+    border-radius: 100%;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.Block_Center-add{
+
+    font-size: 45px;
+    color: white;
+}
+.Minus{
+    margin-bottom: -10px;
+}
+.inputEdit{
+    width: 100%;
+    padding: 5px;
+    color: black;
+    outline: none;
+    font-size: 13px;
+    border-radius: 4px;
+    border: 1px solid #cb0532;
+}
+.Car_Folder_selector{
+    margin-left: 20px;
+}
+.deleteButtonFolder{
+    background-color: #cb0532;
+    font-size: 18px;
+    padding: 5px 10px;
+    border-radius: 14px;
+
+}
