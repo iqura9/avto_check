@@ -64,8 +64,9 @@ export const MainPage: React.FC<{}> = () => {
                     <span>Одна машина</span>
                 </label>
                 <label htmlFor="breadking-bad">
-                    <input
+                    <input defaultChecked={true}
                         {...register('favShow', {required: true})}
+
                         type="radio"
                         name="favShow"
                         value="Array"

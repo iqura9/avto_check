@@ -43,7 +43,7 @@ const ShowArray = () => {
             <option value="200">200</option>
             <option value="500">500</option>
         </select>
-        <select className='select_folder' {...register("filter2")} onChange={(e)=> folderX=(e.target.value)}>
+        <select className='select_folder' {...register("filter2")}  onChange={(e)=> folderX=(e.target.value)}>
             <option value="none" selected disabled hidden>Select an Option</option>
             {SortedCars.map( m=> {
                 return  <option value={m._id}>{m.nameOfFolder}</option>
