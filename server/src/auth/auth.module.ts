@@ -6,7 +6,9 @@ import {PassportModule} from "@nestjs/passport";
 import {JwtModule} from "@nestjs/jwt";
 import {JwtStrategy} from "./jwt.strategy";
 import {TokenModule} from "../token/token.module";
+import {JwtRoleStrategy} from "./jwtRole.strategy";
 require('dotenv').config();
+
 @Module({
   imports:[
       UsersModule,
@@ -17,7 +19,8 @@ require('dotenv').config();
           signOptions: {expiresIn: '1d'},
       }),
   ],
-  providers: [AuthService, JwtStrategy],
-  controllers: [AuthController]
+  providers: [AuthService, JwtStrategy,JwtRoleStrategy],
+  controllers: [AuthController],
+    exports: [JwtStrategy,JwtRoleStrategy]
 })
 export class AuthModule {}

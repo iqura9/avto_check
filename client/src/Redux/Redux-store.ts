@@ -3,10 +3,12 @@ import {showReducer} from "./reducers/showPageReducer";
 import * as thunk from "redux-thunk";
 import {ThunkAction} from "redux-thunk";
 import {folderReducer} from "./reducers/folderPageReducer";
+import {authReducer} from "./reducers/authReducer";
 
 let RootReducers= combineReducers({
     showPage: showReducer,
-    folderPage: folderReducer
+    folderPage: folderReducer,
+    auth: authReducer
 });
 
 type RootReducerType = typeof RootReducers;

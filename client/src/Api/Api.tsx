@@ -3,6 +3,7 @@ import {cars} from "../Redux/reducers/folderPageReducer";
 
 const instance = axios.create({
     baseURL: 'http://192.168.0.6:9000/',
+
 })
 
 export const adminApi = {
@@ -17,6 +18,13 @@ export const adminApi = {
     },
     deleteFolder(id:any) {
         return instance.delete(`api/cars/${id}`).then(res=> res.data);
+    },
+    loginMe(data:{email: string, password: string}) {
+        const {email,password} = data;
+        return instance.post(`/auth/signIn`, {email,password}).then(res=>res.data);
+    },
+    signUp(data:{email: string, password: string}) {
+        return instance.post(`/auth/signUp`, data).then(res=>res.data);
     }
     /*
     getOne(id:any) {

@@ -1,0 +1,45 @@
+.Content{
+    background-color: #cb0532;
+    width: 100%;
+    min-height: 93vh;
+}
+.card{
+    display: flex;
+    height: 80vh;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+}
+.card label{
+    font-size: 17px;
+    color: white;
+    margin-right: 10px;
+}
+.card input{
+    padding: 8px 14px;
+}
+.card h4{
+    color: white;
+}
+.button-list{
+    margin-top: 14px;
+}
+.button-list button{
+    background-color: #3662f4;
+    border-radius: 6px;
+    margin-right: 10px;
+}
+.logOut{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+.logOut div{
+    cursor: pointer;
+}
+.logOut span{
+    color: #e50d0d;
+    font-weight: 800;
+}

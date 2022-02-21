@@ -36,4 +36,12 @@ export class UsersService {
     async find(id: string): Promise<IUser> {
         return await this.userModal.findById({id}).exec();
     }
+
+    async findAll(): Promise<Array<IUser>>{
+        return await this.userModal.find().exec();
+    }
+
+    async findByEmail(email: string): Promise<IUser> {
+        return await this.userModal.findOne({ email:{$regex: new RegExp(email, 'i')} }).exec();
+    }
 }

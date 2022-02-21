@@ -13,6 +13,8 @@ import {setCarFromDB} from "./Redux/reducers/folderPageReducer";
 import {AppStateType} from "./Redux/Redux-store";
 import Preloader from "./UI/Preloader/Preloader";
 import ShowArray from "./UI/show_array/ShowArray";
+import Login from "./UI/loginForm/Login";
+import RegisterForm from "./UI/RegisterForm/RegisterForm";
 
 const initProgram = () => {
     let aValue2 = localStorage.getItem("mainURL");
@@ -37,6 +39,8 @@ const App: React.FC<{}>= () => {
 
                 <Route exact path='/folder' render={() => <Folder/>}/>
                 <Route path='/folder/:id?' render={() => <FolderInfo/>}/>
+                <Route path='/login' render={() => <Login/>}/>
+                <Route path='/register' render={() => <RegisterForm/>}/>
                 <Route path='/*' render={() => <MainPage/>}/>
             </Switch>
         </div>

@@ -1,11 +1,20 @@
 import {NavLink} from "react-router-dom";
 import './header.css';
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import React from "react";
 import {AppStateType} from "../../Redux/Redux-store";
+import {authMeTC, deleteProfileTC} from "../../Redux/reducers/authReducer";
+import Preloader from "../Preloader/Preloader";
 
 export const Header: React.FC<{}> = () =>{
+    const dispatch = useDispatch();
     const counter = useSelector<AppStateType>((state)  => state.folderPage.ArrayFolders.length);
+    const isAuth = useSelector((state:AppStateType) => state.auth.email);
+    if(isAuth === '' && localStorage.getItem("profile")) {dispatch(authMeTC()); return <Preloader/>}
+    const LogOut = () =>{
+        localStorage.removeItem('profile');
+        dispatch(deleteProfileTC());
+    }
     return (
         <header className="site-header">
             <div className="wrapper site-header__wrapper">
@@ -24,6 +33,16 @@ export const Header: React.FC<{}> = () =>{
                 <div className="site-header__end">
                     Folders: {counter}
                 </div>
+                {!isAuth ?
+                <NavLink to='login'>
+                    Sign in
+                </NavLink>
+                    :
+                   <div className='logOut'>
+                   <span>{isAuth}</span>
+                       <div onClick={LogOut}>sign out</div>
+                   </div>
+                }
             </div>
         </header>
     )
