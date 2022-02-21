@@ -1,8 +1,7 @@
-import mongoose from "mongoose";
-import {IAddress} from "../interface/address.interface";
+import { Document } from 'mongoose';
+import { IAddress } from './address.interface';
 
-
-export class CreateUserDto {
+export interface IUser extends Document {
     readonly email: string;
     readonly avatar: string;
     readonly avatarId: string;

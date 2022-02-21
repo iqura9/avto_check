@@ -3,53 +3,37 @@ import * as bcrypt from 'bcryptjs';
 import * as jwt from 'jsonwebtoken';
 import {InjectModel} from "@nestjs/mongoose";
 import {Model} from "mongoose";
-import {User, UserDocument} from "./schemes/user.schema";
+import * as _ from 'lodash';
 import {CreateUserDto} from "./dto/create-user.dto";
+import {IUser} from "./interface/user.interface";
+
 require('dotenv').config();
+
 @Injectable()
 export class UsersService {
 
-    constructor(@InjectModel(User.name) private UserModal : Model<UserDocument>) {}
+    constructor(@InjectModel('User') private userModal: Model<IUser>) {}
 
-    async signUp(dto:CreateUserDto){
+    async create(dto: CreateUserDto, roles: Array<string>): Promise<IUser> {
         const {email, password} = dto;
-        try{
-            const existUser = await this.UserModal.findOne({email});
+        try {
+            const existUser = await this.userModal.findOne({email});
 
-            if(existUser) return new HttpException(`User already exist`, 404);
+            if (existUser) throw new HttpException(`User already exist`, 404);
 
-           const hashedPassword = await bcrypt.hash(password,7);
+            const hashedPassword = await bcrypt.hash(password, 7);
 
-           const result = await this.UserModal.create({email,password:hashedPassword,});
+            const createdUser = new this.userModal(_.assignIn(dto, { password: hashedPassword, roles}));
 
-            const token = jwt.sign({ email: result.email, id:result._id},process.env.SECRET, {expiresIn: '1h'});
+            return await createdUser.save();
 
-            return ({result,token});
-        }catch (e) {
+        } catch (e) {
             console.log(e);
-            return new HttpException(`Something went wrong`, 500);
+            throw new HttpException(`Something went wrong`, 500);
         }
     }
-    async signIn(dto:CreateUserDto){
-        const {email, password} = dto;
 
-        try{
-            const existUser = await this.UserModal.findOne({email});
-
-            if(!existUser) return new HttpException(`User doesn't exist`, 404);
-
-            const isPasswordCorrect = bcrypt.compareSync(password, existUser.password);
-            if(!isPasswordCorrect) return new HttpException(`Invalid password`, 400);
-
-            const token = jwt.sign({ email: existUser.email, id:existUser._id},process.env.SECRET, {expiresIn: '1h'});
-
-            return {result: existUser, token};
-        }catch (e) {
-            return new HttpException(`Something went wrong`, 500);
-        }
-    }
-    async getAll(){
-        const user = await this.UserModal.find();
-        return user;
+    async find(id: string): Promise<IUser> {
+        return await this.userModal.findById({id}).exec();
     }
 }
