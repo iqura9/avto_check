@@ -15,6 +15,7 @@ import Preloader from "./UI/Preloader/Preloader";
 import ShowArray from "./UI/show_array/ShowArray";
 import Login from "./UI/loginForm/Login";
 import RegisterForm from "./UI/RegisterForm/RegisterForm";
+import axios from "axios";
 
 const initProgram = () => {
     let aValue2 = localStorage.getItem("mainURL");
@@ -26,10 +27,10 @@ const App: React.FC<{}>= () => {
     initProgram();
     const cars = useSelector((state:AppStateType) => state.folderPage.ArrayFolders);
     if(cars.length===0) {
-        dispatch(setCarFromDB())
-        return <Preloader/>
+        //dispatch(setCarFromDB())
+        //return <Preloader/>
     }
-
+    const token = useSelector( (state:AppStateType) => state.auth.accessToken)
     return (
         <div>
             <Header/>

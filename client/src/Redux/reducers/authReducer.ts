@@ -1,5 +1,6 @@
 import {BaseThunkType, InferActionsTypes} from "../Redux-store";
 import {adminApi} from "../../Api/Api";
+import {setClearFolder} from "./folderPageReducer";
 
 interface IAddress {
     country: string | null;
@@ -9,6 +10,7 @@ interface IAddress {
 }
 
 let initialState = {
+    _id: '' as string,
         email: '' as string,
         avatar: null as null | string,
         avatarId: null as null | string,
@@ -20,6 +22,8 @@ let initialState = {
         searchField: '' as string,
         phone: '' as string,
         roles: '' as string | Array<string>,
+        folders: [] as Array<any>,
+        accessToken: null as null | string,
 }
 
 type initialStateType = typeof initialState;
@@ -48,8 +52,9 @@ export const authMeTC = (): ThunkType => async (dispatch: any) => {
 
 
 }
-export const deleteProfileTC = (): ThunkType => async (dispatch: any) => {
-    let clearProfile={
+export const deleteProfileTC = (): ThunkType => async (dispatch: any , getState) => {
+    const clearProfile={
+        _id: '',
         email: '',
         avatar: null,
         avatarId: null,
@@ -61,7 +66,10 @@ export const deleteProfileTC = (): ThunkType => async (dispatch: any) => {
         searchField: '',
         phone: '',
         roles: '',
+        folders: [],
+        accessToken: null,
     }
+    dispatch(setClearFolder());
     dispatch(actions.setAuthUserAC(clearProfile));
 }
 

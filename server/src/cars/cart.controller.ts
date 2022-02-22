@@ -8,7 +8,7 @@ import {
   Put,
   Query,
   Res,
-  UploadedFiles,
+  UploadedFiles, UseGuards,
   UseInterceptors
 } from "@nestjs/common";
 
@@ -18,12 +18,13 @@ import { doc } from "prettier";
 
 import {CreateCartDto} from "./dto/create-cart.dto";
 import {CartService} from "./cart.service";
+import {AdminRoleAuthGuard} from "./cart.guard";
 
 @Controller('api/cars')
 export class CartController {
 
   constructor(private cartService:CartService ) {}
-
+  @UseGuards(AdminRoleAuthGuard)
   @Get()
   getAll(){
     return this.cartService.getAll();
@@ -36,10 +37,13 @@ export class CartController {
   updateOne(@Param('id') id: string, @Body() car:CreateCartDto){
     return this.cartService.updateOne(id, car);
   }
-  @Delete('/:id')
-  deleteGood(@Param('id') id: ObjectId){
-    return this.cartService.deleteGood(id);
+  //Якщо папка належить юзеру з токіна, то удалити, інакше дамой
+  @Delete('?')
+  deleteGood(@Query('id') id: ObjectId ,@Query('userId') userId: ObjectId,){
+    return this.cartService.deleteGood(id,userId);
   }
+
+
 
   /*@Get('/search')
   search(@Query('query') query: string){

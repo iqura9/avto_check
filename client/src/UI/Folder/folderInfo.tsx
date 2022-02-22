@@ -15,7 +15,9 @@ interface paramType {
 const FolderInfo:React.FC<PropsType> = (props) => {
     const {id} = useParams<paramType>();
     const state = useSelector( (state:AppStateType) => state.folderPage.ArrayFolders);
+    const adminState = useSelector( (state:AppStateType) => state.adminFolderPage.ArrayFolders);
     let res = state.find( q => q._id === id);
+    if(!res) res = adminState.find( q=> q._id === id);
     return (
         <div className='Align_NIW'>
             {

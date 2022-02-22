@@ -27,7 +27,6 @@ export class AuthService {
 
     async signUp(createUserDto: CreateUserDto): Promise<any> {
         const user = await this.userService.create(createUserDto, [roleEnum.user]);
-        //return user;
         return true;
     }
 
@@ -55,7 +54,7 @@ export class AuthService {
                 uId: user._id
             });
 
-            const readableUser = user.toObject() as IReadableUser;
+            const readableUser = user.toObject() as unknown as IReadableUser;
             readableUser.accessToken = await token;
 
             return _.omit(readableUser, Object.values(userSensitiveFieldsEnum)) as IReadableUser;

@@ -2,23 +2,17 @@ import React, {useEffect, useRef, useState} from "react";
 import {Redirect, useHistory} from "react-router-dom";
 import {actions} from "../../Redux/reducers/showPageReducer";
 import {useDispatch, useSelector} from "react-redux";
-import {ShowImgInRow} from "./ShowImgInRow";
-import {AppStateType} from "../../Redux/Redux-store";
-import {adminApi} from "../../Api/Api";
-import {setCarFromDB} from "../../Redux/reducers/folderPageReducer";
-import Folder from "../Folder/Folder";
 import {useForm} from "react-hook-form";
+import Folder from "../Folder/Folder";
 
 export const MainPage: React.FC<{}> = () => {
     const dispatch = useDispatch();
     const [yes, setYes] = useState(false);
-    const [CarAvaible, setCarAvaible] = useState(false);
+    const [CarAvaible, setCarAvaible] = useState(true);
     const history = useHistory();
     useEffect(() => {
-        dispatch(setCarFromDB())
         if (JSON.parse(localStorage.getItem('mainURL') || "")) {
             dispatch(actions.setInitializeProgram());
-            setCarAvaible(true);
         }
     }, []);
 
@@ -31,9 +25,8 @@ export const MainPage: React.FC<{}> = () => {
         setYes(true);
         localStorage.setItem('mainURL', JSON.stringify(val));
     }
-    const seeValue = (e: React.ChangeEvent<HTMLInputElement>) => {
-        val = e.target.value;
-    }
+    const seeValue = (e: React.ChangeEvent<HTMLInputElement>) => val = e.target.value;
+
     const {register, handleSubmit} = useForm({shouldUseNativeValidation: true});
     const onSubmit = async (data: any) => {
         if(data.favShow === 'Array'){
@@ -81,9 +74,10 @@ export const MainPage: React.FC<{}> = () => {
             </form>
             {CarAvaible &&
                 <div className='Align_NIW'>
-                    <Folder/>
+                    <Folder seeAll={true}/>
                 </div>
             }
+            {/*добавити якщо роль адмін, але спочатку в апі*/}
 
         </>
     );

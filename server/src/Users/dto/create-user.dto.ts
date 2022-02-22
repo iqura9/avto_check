@@ -1,7 +1,8 @@
-import mongoose from "mongoose";
+import mongoose, {ObjectId} from "mongoose";
 import {IAddress} from "../interface/address.interface";
 import {IsEmail, IsEnum, IsNotEmpty} from "class-validator";
 import {genderEnum} from "../enums/gender.enum";
+import {cars} from "../../cars/dto/create-cart.dto";
 
 
 export class CreateUserDto {
@@ -21,4 +22,5 @@ export class CreateUserDto {
     readonly phone: string;
     readonly roles: Array<string>;
     readonly password: string;
+    readonly folders: Array<mongoose.Types.ObjectId>;
 }

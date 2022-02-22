@@ -4,11 +4,13 @@ import * as thunk from "redux-thunk";
 import {ThunkAction} from "redux-thunk";
 import {folderReducer} from "./reducers/folderPageReducer";
 import {authReducer} from "./reducers/authReducer";
+import {adminFolderReducer} from "./reducers/adminFolderPageReducer";
 
 let RootReducers= combineReducers({
     showPage: showReducer,
     folderPage: folderReducer,
-    auth: authReducer
+    auth: authReducer,
+    adminFolderPage: adminFolderReducer
 });
 
 type RootReducerType = typeof RootReducers;
@@ -17,6 +19,7 @@ export type InferActionsTypes<T> = T extends { [keys: string]: (...args: any[]) 
 export type BaseThunkType<A extends Action = Action, R = Promise<void>> = ThunkAction<R, AppStateType, unknown, A>
 
 let store = createStore(RootReducers,applyMiddleware(thunk.default));
+
 // @ts-ignore
 window.store = store;
 

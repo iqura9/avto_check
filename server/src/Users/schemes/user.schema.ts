@@ -1,4 +1,5 @@
 import * as mongoose from "mongoose";
+import {ObjectId} from "mongoose";
 import { genderEnum } from "../enums/gender.enum";
 import { roleEnum } from "../enums/role.enum";
 
@@ -19,6 +20,7 @@ export const UserSchema = new mongoose.Schema({
     phone: { type: String, default: null },
     roles: { type: [String], required: true, enum: Object.values(roleEnum) },
     password: { type: String, required: true },
+    folders: [{type: mongoose.Schema.Types.ObjectId, ref: 'Cart'}]
 });
 
 UserSchema.index({ email: 1 }, { unique: true });

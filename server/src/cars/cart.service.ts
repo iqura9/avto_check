@@ -2,14 +2,16 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from "@nestjs/mongoose";
 
 import { Model, ObjectId } from "mongoose";
-import {Cart, CartDocument} from "./schemes/cart.schema";
 import {CreateCartDto} from "./dto/create-cart.dto";
+import {ICart} from "./interface/cart.interface";
+import {IUser} from "../Users/interface/user.interface";
 
 
 @Injectable()
 export class CartService {
 
-  constructor(@InjectModel(Cart.name) private CartModal : Model<CartDocument>) {}
+  constructor(@InjectModel('Cart') private CartModal : Model<ICart>,
+              @InjectModel('User') private userModal: Model<IUser>) {}
 
   async getAll(){
     const car = await this.CartModal.find();
@@ -30,12 +32,11 @@ export class CartService {
     return good;
   }
 */
-  async deleteGood(id: ObjectId): Promise<ObjectId>{
+  async deleteGood(id: ObjectId , userId: ObjectId){
     const goood = await this.CartModal.findByIdAndDelete(id);
-    return goood.id;
+    const updatedUser = await this.userModal.updateOne({"_id": userId},
+        {$pull : {folders:{$in: [id]}}});
+    console.log(updatedUser);
+    return true;
   }
-
-
-
-
 }

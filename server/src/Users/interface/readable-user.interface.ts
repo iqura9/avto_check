@@ -1,4 +1,5 @@
 import {IAddress} from "./address.interface";
+import mongoose from "mongoose";
 
 export interface IReadableUser {
     readonly email: string;
@@ -11,5 +12,6 @@ export interface IReadableUser {
     readonly profession: string;
     readonly phone: string;
     readonly roles: string[];
+    readonly folders?: Array<mongoose.Types.ObjectId>;
     accessToken?: string;
 }

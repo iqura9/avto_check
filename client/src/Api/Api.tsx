@@ -1,9 +1,11 @@
 import axios from "axios";
 import {cars} from "../Redux/reducers/folderPageReducer";
-
+import {useSelector} from "react-redux";
+import {AppStateType} from "../Redux/Redux-store";
+const config = JSON.parse(String(localStorage.getItem('profile')));
 const instance = axios.create({
     baseURL: 'http://192.168.0.6:9000/',
-
+    headers : {"Authorization": `Bearer ${ config && config.accessToken}`},
 })
 
 export const adminApi = {
@@ -16,8 +18,9 @@ export const adminApi = {
     updateFolderName(id:string,data:any){
         return instance.put(`api/cars/${id}`, {...data}).then(res=>res.data);
     },
-    deleteFolder(id:any) {
-        return instance.delete(`api/cars/${id}`).then(res=> res.data);
+    deleteFolder(id:any, userId:any) {
+        const mainId= `?id=${id}&userId=${userId}`;
+        return instance.delete(`api/cars${mainId}`, ).then(res=> res.data);
     },
     loginMe(data:{email: string, password: string}) {
         const {email,password} = data;
@@ -25,16 +28,12 @@ export const adminApi = {
     },
     signUp(data:{email: string, password: string}) {
         return instance.post(`/auth/signUp`, data).then(res=>res.data);
+    },
+    getFolders(id:string){
+        return instance.get(`/api/users/${id}`).then(res=>res.data);
+    },
+    addIdOfCar(data:any){
+        return instance.post(`/api/users`, data).then(res=>res.data);
     }
-    /*
-    getOne(id:any) {
-        return instance.get(`api/goods/${id}`).then(res=> res.data);
-    },
-    searchFunca(query:string){
-        return instance.get(`api/goods/search?query=${query}`).then(res=> res.data);
-    },
-    searchFilterFunca(query2:string,query3:string){
-        return instance.get(`api/goods/search2?query2=${query2}&query3=${query3}`).then(res=> res.data);
-    }*/
 
 }

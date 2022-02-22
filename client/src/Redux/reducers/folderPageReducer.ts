@@ -37,6 +37,12 @@ export const folderReducer = (state = initialState, action: ActionsTypes): Initi
                     return {...u, ...u.Cars};
                 })
             }
+        case "deleteFolderById":
+            //debugger;
+            return {
+                ...state,
+                ArrayFolders: state.ArrayFolders.filter(f => f._id != action.folderID),
+            }
         case "addNewFolder":
             return {
                 ...state,
@@ -70,6 +76,7 @@ export const folderReducer = (state = initialState, action: ActionsTypes): Initi
 
 export const actions = {
     deleteId: (folderID: string, productID: string) => ({type: 'deleteId', folderID, productID} as const),
+    deleteFolderById: (folderID: string) => ({type: 'deleteFolderById', folderID} as const),
     addNewFolder: (folderData: cars) => ({type: 'addNewFolder', folderData} as const),
     setFromDB: (folderData: Array<cars>) => ({type: 'setFromDB', folderData} as const),
     changeName: (folderId: string, folderName: string) => ({type: 'changeName', folderId, folderName} as const),
@@ -91,12 +98,14 @@ export const setCarToFolderThunk = (folderId: string,carId:number):ThunkType => 
         await adminApi.updateFolderName(folderId,carToSend);
     }
 }
-export const setCarFromDB = ():ThunkType => async (dispatch,getState) =>{
-    const car = await adminApi.getGoods()
+export const setCarFromDB = (id:string):ThunkType => async (dispatch,getState) =>{
+    //const car = await adminApi.getGoods()
+    const car = await  adminApi.getFolders(id).then(res => res.folders);
     dispatch(actions.setFromDB(car));
 }
 export const addNewFolder = (data:any):ThunkType => async (dispatch,getState) =>{
-    const car = await adminApi.addNewFolder(data);
+
+    const car = await adminApi.addIdOfCar(data);
     dispatch(actions.addNewFolder(car));
 }
 export const chnageNameFolderThunk = (folderId:string,folderName:string):ThunkType => async (dispatch,getState) =>{
@@ -105,9 +114,18 @@ export const chnageNameFolderThunk = (folderId:string,folderName:string):ThunkTy
         await adminApi.updateFolderName(folderId,car);
     }
 }
-export const deleteFolderX = (id:string):ThunkType => async (dispatch,getState) =>{
-    await adminApi.deleteFolder(id);
-    await dispatch(setCarFromDB());
+export const deleteFolderX = (id:string, userId:any):ThunkType => async (dispatch,getState) =>{
+    try{
+        await adminApi.deleteFolder(id,userId);
+        dispatch(actions.deleteFolderById(id));
+    }catch (e){
+        console.log(e);
+    }
 }
+
+export const setClearFolder = ():ThunkType => async (dispatch,getState) =>{
+    dispatch(actions.setFromDB([]))
+}
+
 type ActionsTypes = InferActionsTypes<typeof actions>
 type ThunkType = BaseThunkType<ActionsTypes>

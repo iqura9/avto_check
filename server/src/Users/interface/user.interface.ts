@@ -1,5 +1,6 @@
-import { Document } from 'mongoose';
+import {Document, ObjectId} from 'mongoose';
 import { IAddress } from './address.interface';
+import {cars} from "../../cars/dto/create-cart.dto";
 
 export interface IUser extends Document {
     readonly email: string;
@@ -14,4 +15,5 @@ export interface IUser extends Document {
     readonly phone: string;
     readonly roles: Array<string>;
     readonly password: string;
+    readonly folders: Array<ObjectId>;
 }
