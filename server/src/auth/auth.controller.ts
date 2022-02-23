@@ -21,8 +21,11 @@ export class AuthController {
     async signIn(@Body(new ValidationPipe()) signInDto: SignInDto): Promise<IReadableUser> {
         return await this.authService.signIn(signInDto);
     }
+    @Post('/refresh')
+    refresh(@Body() dto:any){
+        return this.authService.refresh(dto);
+    }
 
-    //@UseGuards(AuthGuard('jwt'))
     @UseGuards(AdminAuthGuard)
     @Get()
     findAll(){

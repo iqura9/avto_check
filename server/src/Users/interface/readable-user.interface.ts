@@ -14,4 +14,5 @@ export interface IReadableUser {
     readonly roles: string[];
     readonly folders?: Array<mongoose.Types.ObjectId>;
     accessToken?: string;
+    refreshToken?: string;
 }

@@ -2,12 +2,35 @@ import axios from "axios";
 import {cars} from "../Redux/reducers/folderPageReducer";
 import {useSelector} from "react-redux";
 import {AppStateType} from "../Redux/Redux-store";
-const config = JSON.parse(String(localStorage.getItem('profile')));
-const instance = axios.create({
-    baseURL: 'http://192.168.0.6:9000/',
-    headers : {"Authorization": `Bearer ${ config && config.accessToken}`},
-})
 
+
+const instance = axios.create({
+    baseURL: 'http://192.168.0.3:9000/',
+})
+instance.interceptors.request.use((config) => {
+    let accessToken = JSON.parse(String(localStorage.getItem('profile')));
+    //@ts-ignore
+    config.headers.Authorization = `Bearer ${ accessToken && accessToken.accessToken}`
+    return config;
+})
+instance.interceptors.response.use((config)=>{
+    return config;
+},(async error => {
+    const originalRequest = error.config;
+    if(error.response.status == 401 && error.config && !error.config._isRetry){
+        originalRequest._isRetry = true;
+        try{
+            const access = JSON.parse(String(localStorage.getItem('profile')));
+            const responce = await instance.post(`auth/refresh`, {"token": access.refreshToken}).then(res=> res.data.accessToken);
+            access.accessToken = responce;
+            await localStorage.setItem('profile', JSON.stringify(access));
+            return instance.request(originalRequest);
+        } catch (e){
+            console.log('НЕ АВТОРЕЗОВАН')
+        }
+    }
+    throw error;
+}))
 export const adminApi = {
     getGoods() {
         return instance.get<Array<cars>>(`api/cars`).then(res=> res.data);

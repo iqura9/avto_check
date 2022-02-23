@@ -1,6 +1,7 @@
 import React, {useState} from "react";
-import {useDispatch} from "react-redux";
-import {deleteCarThunk} from "../../Redux/reducers/folderPageReducer";
+import {useDispatch, useSelector} from "react-redux";
+import {deleteCarThunk, setCarFromDB} from "../../Redux/reducers/folderPageReducer";
+import {AppStateType} from "../../Redux/Redux-store";
 
 interface PropsType{
     url: number,
@@ -12,6 +13,7 @@ interface PropsType{
 export const ShowImgInRow:React.FC<PropsType> = ({url,deleteNew,folderID,productID,...props}) =>{
     const [vis,setVis] = useState<boolean>(false);
     const dispatch = useDispatch();
+
     const numberMainLetter = 'f';
     let baseUrl = `https://cdn3.riastatic.com/photosnew/auto/photo/__${url}${numberMainLetter}.jpg`;
     const openBigImg = () =>{

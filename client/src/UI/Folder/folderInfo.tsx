@@ -1,10 +1,10 @@
 import React, {useEffect, useState} from 'react';
 import {useParams} from "react-router-dom";
 import {AppStateType} from "../../Redux/Redux-store";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {ShowImgInRow} from "../FIRST_PAGE/ShowImgInRow";
 import './folder.css';
-import {actions} from "../../Redux/reducers/folderPageReducer";
+import {actions, setCarFromDB} from "../../Redux/reducers/folderPageReducer";
 
 interface PropsType {
 
@@ -18,6 +18,7 @@ const FolderInfo:React.FC<PropsType> = (props) => {
     const adminState = useSelector( (state:AppStateType) => state.adminFolderPage.ArrayFolders);
     let res = state.find( q => q._id === id);
     if(!res) res = adminState.find( q=> q._id === id);
+
     return (
         <div className='Align_NIW'>
             {

@@ -20,7 +20,6 @@ require('dotenv').config();
     MongooseModule.forFeature([{name: 'User', schema: UserSchema}]),
     JwtModule.register({
       secret: process.env.SECRET,
-      signOptions: {expiresIn: '1d'},
     }),
   ],
   controllers: [CartController],

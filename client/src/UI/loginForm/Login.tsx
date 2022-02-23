@@ -4,21 +4,21 @@ import {NavLink, useHistory} from "react-router-dom";
 import './styleForLoginForm.css'
 import {useDispatch} from "react-redux";
 import {authMeTC, loginTC} from "../../Redux/reducers/authReducer";
+
 const Login: React.FC<{}> = () => {
 
-    // get functions to build form with useForm() hook
     const {register, handleSubmit, formState} = useForm();
     const {errors} = formState;
     const history = useHistory();
     const dispatch = useDispatch();
 
 
-
-    function onSubmit(data:any) {
-      dispatch(loginTC(data,history));
+    function onSubmit(data: any) {
+        dispatch(loginTC(data, history));
     }
+
     dispatch(authMeTC());
-    if(localStorage.getItem("profile")) history.push({pathname: '/'});
+    if (localStorage.getItem("profile")) history.push({pathname: '/'});
     return (
         <div className="Content">
             <div className="card">
@@ -38,11 +38,12 @@ const Login: React.FC<{}> = () => {
                             <div className="invalid-feedback">{errors.password?.message}</div>
                         </div>
                         <div className='button-list'>
-                        <button disabled={formState.isSubmitting} className="btn btn-primary">
-                            {formState.isSubmitting && <span className="spinner-border spinner-border-sm mr-1"></span>}
-                            Login
-                        </button>
-                        <NavLink to="/account/register" className="btn btn-link">Register</NavLink>
+                            <button disabled={formState.isSubmitting} className="btn btn-primary">
+                                {formState.isSubmitting &&
+                                    <span className="spinner-border spinner-border-sm mr-1"></span>}
+                                Login
+                            </button>
+                            <NavLink to="/register" className="btn btn-link">Register</NavLink>
                         </div>
                     </form>
                 </div>

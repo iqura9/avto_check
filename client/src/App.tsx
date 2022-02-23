@@ -25,11 +25,6 @@ const initProgram = () => {
 const App: React.FC<{}>= () => {
     const dispatch = useDispatch();
     initProgram();
-    const cars = useSelector((state:AppStateType) => state.folderPage.ArrayFolders);
-    if(cars.length===0) {
-        //dispatch(setCarFromDB())
-        //return <Preloader/>
-    }
     const token = useSelector( (state:AppStateType) => state.auth.accessToken)
     return (
         <div>
@@ -37,7 +32,6 @@ const App: React.FC<{}>= () => {
             <Switch>
                 <Route path='/show/array/:id?' render={() => <ShowArray/>}/>
                 <Route path='/show/:id?' render={() => <SearchingCar/>}/>
-
                 <Route exact path='/folder' render={() => <Folder/>}/>
                 <Route path='/folder/:id?' render={() => <FolderInfo/>}/>
                 <Route path='/login' render={() => <Login/>}/>

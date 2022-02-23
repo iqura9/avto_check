@@ -8,7 +8,6 @@ import {CreateUserDto} from "./dto/create-user.dto";
 import {IUser} from "./interface/user.interface";
 import {CreateCartDto, CreateIDOFCARDto} from "../cars/dto/create-cart.dto";
 import {ICart} from "../cars/interface/cart.interface";
-
 require('dotenv').config();
 
 @Injectable()

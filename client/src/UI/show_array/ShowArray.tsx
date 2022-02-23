@@ -1,14 +1,23 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import './showarray.css'
 import {useHistory, useParams} from "react-router-dom";
 import CarImg from "./CarImg";
 import {useForm} from "react-hook-form";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {AppStateType} from "../../Redux/Redux-store";
+import {setCarFromDB} from "../../Redux/reducers/folderPageReducer";
 export let folderX ='';
 const ShowArray = () => {
     const {id} = useParams<{id:string}>();
     const [folder, setFolder] = useState<string>();
+    const dispatch = useDispatch();
+    const foldersName = useSelector( (state:AppStateType) => state.folderPage.ArrayFolders);
+    useEffect(()=>{
+        if(foldersName.length === 0){
+            let user = JSON.parse(String(localStorage.getItem('profile')));
+            dispatch(setCarFromDB(user._id));
+        }
+    },[])
     const history = useHistory();
     let len = 0;
     const queryString = require('query-string');
@@ -24,7 +33,6 @@ const ShowArray = () => {
 
 
     const { register, handleSubmit } = useForm();
-    const foldersName = useSelector( (state:AppStateType) => state.folderPage.ArrayFolders);
     let SortedCars = foldersName.slice(0);
     SortedCars.sort(function(a,b) {
         return b.Cars.length - a.Cars.length;

@@ -7,16 +7,17 @@ import {JwtModule} from "@nestjs/jwt";
 import {JwtStrategy} from "./jwt.strategy";
 import {TokenModule} from "../token/token.module";
 import {JwtRoleStrategy} from "./jwtRole.strategy";
+import {RefreshTokenModule} from "../RefreshToken/refreshToken.module";
 require('dotenv').config();
 
 @Module({
   imports:[
       UsersModule,
       TokenModule,
+      RefreshTokenModule,
       PassportModule.register({defaultStrategy:'jwt'}),
       JwtModule.register({
           secret: process.env.SECRET,
-          signOptions: {expiresIn: '1d'},
       }),
   ],
   providers: [AuthService, JwtStrategy,JwtRoleStrategy],
