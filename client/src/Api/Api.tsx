@@ -5,8 +5,9 @@ import {AppStateType} from "../Redux/Redux-store";
 
 
 const instance = axios.create({
-    baseURL: 'http://192.168.0.3:9000/',
+    baseURL: 'http://192.168.0.4:9000',
 })
+
 instance.interceptors.request.use((config) => {
     let accessToken = JSON.parse(String(localStorage.getItem('profile')));
     //@ts-ignore

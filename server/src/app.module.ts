@@ -11,7 +11,8 @@ require('dotenv').config();
 
 @Module({
   imports: [
-    MongooseModule.forRoot(`mongodb+srv://${process.env.MONGO_NAME}:${process.env.MONGO_PASSWORD}@cluster0.rvncj.mongodb.net/Car-server?retryWrites=true&w=majority`),
+    //MongooseModule.forRoot(`mongodb+srv://${process.env.MONGO_NAME}:${process.env.MONGO_PASSWORD}@cluster0.rvncj.mongodb.net/Car-server?retryWrites=true&w=majority`),
+    MongooseModule.forRoot(`mongodb+srv://iqura:l69GGg99jDbp9A4M@cluster0.rvncj.mongodb.net/Car-server?retryWrites=true&w=majority`),
     CartModule,
     UsersModule,
     AuthModule,
